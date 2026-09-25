@@ -312,7 +312,7 @@
       { q: "Salah satu dampak sosial positif dari berkembangnya teknologi informatika adalah...", options: ["Meningkatnya risiko kejahatan siber", "Memudahkan komunikasi jarak jauh dan akses informasi", "Menyebabkan ketergantungan pada gawai", "Penyebaran hoaks yang makin cepat"], answer: 1, score: 1 },
       { q: "Langkah terbaik yang harus dilakukan saat menerima informasi yang belum jelas kebenarannya (berpotensi hoaks) adalah...", options: ["Langsung membagikannya ke semua grup media sosial", "Memeriksa kebenaran informasi melalui sumber berita terpercaya", "Menambah-nambahi isi berita agar lebih menarik", "Abaikan dan langsung menghapus aplikasi media sosial"], answer: 1, score: 1 },
       { q: "Jika seseorang menjadi korban cyberbullying di media sosial, langkah pertama yang paling tepat dilakukan adalah...", options: ["Membalas dengan kata-kata yang lebih kasar", "Menyimpan bukti pesan/tangkapan layar dan melaporkan akun pelaku", "Menutup diri dan tidak memberitahu siapapun", "Menghapus seluruh postingan orang lain"], answer: 1, score: 1 },
-      { q: "Kesenjangan atau perbedaan kemampuan dalam mengakses dan menggunakan teknologi informasi antar individu atau kelompok dinamakan...", options: ["Digital divide (kesenjangan digital)", "Digital literacy", "Digital footprint", "Digital citizenship"], answer: 0, score: 1 }
+      { q: "Kesenjangan atau perbedaan kemampuan dalam mengakses dan menggunakan teknologi informasi antar individu atau kelompok dinamakan...", options: ["Digital divide (kesenjangan digital)", "Digital literacy", "Digital footprint", "Digital citizenship"], answer: 0, score: 1 },
       { q: "Fitur pada Google Sites yang digunakan untuk mempublikasikan halaman web agar dapat diakses oleh publik adalah...", options: ["Preview", "Publish", "Share", "Insert"], answer: 1, score: 1 },
       { q: "Struktur hierarki folder yang berada di dalam folder lain sering disebut sebagai...", options: ["Root Folder", "Subfolder", "Parent Folder", "Directory System"], answer: 1, score: 1 },
       { q: "Kumpulan riwayat halaman web yang pernah dikunjungi pengguna dan tersimpan pada browser dinamakan...", options: ["Bookmark", "Cookies", "Browser History", "Cache"], answer: 2, score: 1 },
@@ -418,7 +418,7 @@
                 totalScore += q.score;
             } else {
                 wrongCount++;
-                totalScore -= 1;
+                totalScore -= 4; // <-- SUDAH DIPERBAIKI: Pengurangan poin salah menjadi -4
             }
         });
 
