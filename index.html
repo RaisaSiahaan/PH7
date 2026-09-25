@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Ceria ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #E6F0FA;
+            --card-bg: #FFFFFF;
+            --primary: #8EB8E5;
+            --primary-hover: #6B9FD8;
+            --accent-orange: #FFB37C;
+            --accent-yellow: #FFF275;
+            --text-color: #4A4E69;
+            --border-color: #D3E4F4;
+        }
+
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: var(--bg-color);
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .quiz-container {
+            background-color: var(--card-bg);
+            border-radius: 28px;
+            box-shadow: 0 10px 25px rgba(142, 184, 229, 0.25);
+            width: 100%;
+            max-width: 650px;
+            padding: 30px;
+            border: 4px solid #FFFFFF;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px dashed var(--border-color);
+        }
+
+        .title {
+            font-family: 'Fredoka', cursive;
+            font-size: 26px;
+            color: #537EC5;
+            margin: 0;
+        }
+
+        .badge {
+            background-color: var(--accent-yellow);
+            color: #8C6A00;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .input-name {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: 'Nunito', sans-serif;
+            box-sizing: border-box;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            outline: none;
+        }
+
+        .input-name:focus {
+            border-color: var(--primary);
+        }
+
+        .question-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-hover);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background-color: #F8FBFE;
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 16px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn:hover {
+            background-color: #FFF8EE;
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+        }
+
+        .option-btn.selected {
+            background-color: #FFEADB;
+            border-color: var(--accent-orange);
+            color: #D66D20;
+        }
+
+        .option-prefix {
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-weight: bold;
+            border: 2px solid var(--border-color);
+            color: var(--primary-hover);
+        }
+
+        .option-btn.selected .option-prefix {
+            border-color: var(--accent-orange);
+            background-color: var(--accent-orange);
+            color: white;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 3px dashed var(--border-color);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Fredoka', cursive;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(142, 184, 229, 0.4);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background-color: #D0D7DE;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-orange);
+            box-shadow: 0 4px 10px rgba(255, 179, 124, 0.4);
+        }
+        .btn-submit:hover {
+            background-color: #E5955D;
+        }
+
+        .result-box {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .score-display {
+            font-family: 'Fredoka', cursive;
+            font-size: 52px;
+            color: #537EC5;
+            margin: 15px 0;
+        }
+
+        .alert-banner {
+            background-color: #FF7675;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="quiz-container">
+    <div id="alert-banner" class="alert-banner">
+        ⚠️ Peringatan: Kamu keluar dari tab kuis! Sisa kesempatan: <span id="warning-count">3</span>x lagi.
+    </div>
+
+    <!-- Halaman Awal / Masukkan Nama -->
+    <div id="start-box">
+        <h1 class="title" style="text-align: center; font-size: 32px;">Selamat Datang di Quiz ICT!<br>𐦂𖨆𐀪𖠋𐀪𐀪</h1>
+        <p style="text-align: center;">Masukkan nama lengkapmu sebelum memulai kuis.<br>🍂🧸🥐☕🍪</p>
+        <input type="text" id="student-name" class="input-name" placeholder="Ketik nama lengkapmu di sini..." autocomplete="off">
+        <button class="btn" style="width: 100%;" onclick="startQuiz()">Mulai Kerjakan 📝</button>
+    </div>
+
+    <!-- Halaman Kuis -->
+    <div id="quiz-box" style="display: none;">
+        <div class="header">
+            <h1 class="title">✎ᝰ. Kuis ICT </h1>
+            <span class="badge" id="penalty-info">Salah = -4 Poin</span>
+        </div>
+
+        <div class="question-number" id="q-number">Soal 1 dari 40</div>
+        <div class="question-text" id="q-text">Loading Soal...</div>
+
+        <div class="options-container" id="options-box"></div>
+
+        <div class="footer">
+            <button class="btn" id="prev-btn" onclick="changeQuestion(-1)">← Sebelumnya</button>
+            <button class="btn" id="next-btn" onclick="changeQuestion(1)">Selanjutnya →</button>
+            <button class="btn btn-submit" id="submit-btn" style="display: none;" onclick="finishQuiz(false)">Selesai & Kirim 🎉</button>
+        </div>
+    </div>
+
+    <!-- Halaman Hasil / Nilai -->
+    <div id="result-box" class="result-box" style="display: none;">
+        <h1 class="title" id="result-title" style="font-size: 32px;">Ujian Selesai! (╥﹏╥)</h1>
+        <p id="result-desc">Jawabanmu sudah berhasil terkirim ke sistem. ▄︻デ══━一💥</p>
+        
+        <div class="score-display" id="final-score">0</div>
+
+        <div style="text-align: left; background: #FFFBEA; border: 2px solid var(--accent-yellow); padding: 18px; border-radius: 16px; margin-top: 20px;">
+            <p style="margin: 6px 0;">👤 Nama: <strong id="res-student-name">-</strong></p>
+            <p style="margin: 6px 0;">✅ Jawaban Benar: <strong id="count-correct">0</strong></p>
+            <p style="margin: 6px 0;">❌ Jawaban Salah (-4): <strong id="count-wrong">0</strong></p>
+            <p style="margin: 6px 0;">⚪ Tidak Dijawab: <strong id="count-empty">0</strong></p>
+        </div>
+        <p id="sending-status" style="font-size: 13px; font-weight: bold; color: #537EC5; margin-top: 15px;">Mengirim data ke Google Sheets...</p>
+    </div>
+</div>
+
+<script>
+    // URL Google Apps Script milikmu
+    const GSHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1g1Gds5gJNMWLlcN7eyWdNuXAvsBIFwdurpzyqZKQ_qXKvJtCfakSHjL0t6Dy0aFEUg/exec";
+
+    const rawQuestions = [
+      { q: "Perangkat keras yang digunakan untuk memasukkan data atau perintah ke dalam komputer disebut...", options: ["Output device", "Input device", "Storage device", "Processing device"], answer: 1, score: 10 },
+      { q: "Berikut ini yang merupakan contoh dari perangkat input (input device) adalah...", options: ["Monitor", "Keyboard", "Printer", "Speaker"], answer: 1, score: 10 },
+      { q: "Komponen utama pada komputer yang berfungsi sebagai otak untuk memproses data adalah...", options: ["RAM", "CPU", "Harddisk", "Motherboard"], answer: 1, score: 10 },
+      { q: "Proses pengolahan data yang dilakukan oleh komputer terjadi pada tahap...", options: ["Input", "Process", "Output", "Storage"], answer: 1, score: 10 },
+      { q: "Perangkat yang digunakan untuk menampilkan hasil pengolahan data dalam bentuk cetakan kertas adalah...", options: ["Scanner", "Plotter", "Printer", "Monitor"], answer: 2, score: 10 },
+      { q: "Media penyimpanan yang bersifat sementara dan datanya akan hilang saat komputer dimatikan (volatile) adalah...", options: ["ROM", "RAM", "Harddisk", "Flashdisk"], answer: 1, score: 10 },
+      { q: "Perangkat input yang berfungsi untuk mengubah dokumen fisik menjadi dokumen digital adalah...", options: ["Printer", "Scanner", "Webcam", "Microphone"], answer: 1, score: 10 },
+      { q: "Unit dalam CPU yang bertugas melakukan perhitungan aritmatika dan logika adalah...", options: ["Control Unit (CU)", "Register", "Arithmetic Logic Unit (ALU)", "ROM"], answer: 2, score: 10 },
+      { q: "Perangkat output yang berfungsi mengeluarkan suara dari komputer adalah...", options: ["Microphone", "Headphone / Speaker", "Webcam", "Projector"], answer: 1, score: 10 },
+      { q: "Perangkat penyimpanan sekunder (secondary storage) yang menggunakan teknologi memori flash tanpa bagian bergerak adalah...", options: ["Harddisk Drive (HDD)", "Solid State Drive (SSD)", "CD-ROM", "Floppy Disk"], answer: 1, score: 10 },
+      { q: "Perangkat yang digunakan untuk mengarahkan kursor dan memilih objek pada layar visual adalah...", options: ["Keyboard", "Mouse", "Microphone", "Barcode Reader"], answer: 1, score: 10 },
+      { q: "Urutan siklus pemrosesan data pada sistem komputer yang benar adalah...", options: ["Process -> Input -> Output -> Storage", "Input -> Process -> Output -> Storage", "Storage -> Input -> Process -> Output", "Output -> Process -> Input -> Storage"], answer: 1, score: 10 },
+      { q: "Perangkat keras yang bertugas memproyeksikan tampilan layar komputer ke dinding atau layar lebar adalah...", options: ["Monitor", "Proyektor (LCD Projector)", "Plotter", "Scanner"], answer: 1, score: 10 },
+      { q: "Memori internal yang hanya bisa dibaca dan berisi instruksi dasar untuk booting komputer adalah...", options: ["RAM", "ROM", "SSD", "Cache"], answer: 1, score: 10 },
+      { q: "Di bawah ini yang tergolong sebagai media penyimpanan eksternal/portabel adalah...", options: ["RAM", "Flashdisk", "Cache Memory", "Register"], answer: 1, score: 10 },
+      { q: "Perangkat input yang biasa digunakan pada kasir minimarket untuk membaca kode pada kemasan barang adalah...", options: ["Barcode Scanner", "Microphone", "Touchpad", "Joystick"], answer: 0, score: 10 },
+      { q: "Kartu grafis yang bertugas memproses gambar dan video sebelum ditampilkan ke monitor adalah...", options: ["Sound Card", "Network Card", "VGA Card / GPU", "RAM"], answer: 2, score: 10 },
+      { q: "Perangkat interaktif yang berfungsi sebagai input sekaligus output pada smartphone/tablet adalah...", options: ["Keyboard", "Touchscreen", "Monitor", "Stylus"], answer: 1, score: 10 },
+      { q: "Proses menyimpan data dari RAM ke dalam harddisk atau SSD disebut operasi...", options: ["Input", "Output", "Read", "Write/Storage"], answer: 3, score: 10 },
+      { q: "Perangkat input yang sering digunakan oleh gamer untuk mengendalikan pergerakan karakter dalam game adalah...", options: ["Webcam", "Joystick / Gamepad", "Scanner", "Trackball"], answer: 1, score: 10 },
+      { q: "Berapakah nilai desimal dari bilangan biner 1010₂?", options: ["8", "10", "12", "14"], answer: 1, score: 10 },
+      { q: "Berapakah bentuk biner dari bilangan desimal 25₁₀?", options: ["11001₂", "10101₂", "11100₂", "10011₂"], answer: 0, score: 10 },
+      { q: "Berapakah hasil dari konversi bilangan biner 1111₂ ke desimal?", options: ["13", "14", "15", "16"], answer: 2, score: 10 },
+      { q: "Berapakah bentuk biner dari bilangan desimal 42₁₀?", options: ["101010₂", "101100₂", "110010₂", "100101₂"], answer: 0, score: 10 },
+      { q: "Berapakah hasil dari konversi bilangan biner 1100100₂ ke desimal?", options: ["90", "96", "100", "108"], answer: 2, score: 10 },
+      { q: "Kemampuan untuk mengakses, memahami, membuat, mengomunikasikan, dan mengevaluasi informasi melalui teknologi digital disebut...", options: ["Literasi Digital", "Cyberbullying", "E-Commerce", "Digital Marketing"], answer: 0, score: 10 },
+      { q: "Perilaku merundung, mengintimidasi, atau mempermalukan seseorang menggunakan teknologi digital seperti media sosial disebut...", options: ["Phishing", "Cyberbullying", "Hacking", "Spamming"], answer: 1, score: 10 },
+      { q: "Di bawah ini yang merupakan salah satu bentuk cyberbullying adalah...", options: ["Mengirim pesan apresiasi di kolom komentar", "Mengunggah foto atau video seseorang tanpa izin untuk mempermalukannya", "Membagikan artikel berita dari sumber resmi", "Membuat grup diskusi belajar bersama"], answer: 1, score: 10 },
+      { q: "Jejak data yang tertinggal setelah kita menggunakan internet, seperti riwayat pencarian dan unggahan media sosial, disebut...", options: ["Digital footprint (jejak digital)", "Cookies", "Cache", "Bookmark"], answer: 0, score: 10 },
+      { q: "Tindakan kejahatan berupa penipuan untuk mencuri data pribadi seperti kata sandi atau nomor kartu kredit melalui pesan/email palsu disebut...", options: ["Spoofing", "Phishing", "DDoS", "Malware"], answer: 1, score: 10 },
+      { q: "Undang-Undang di Indonesia yang mengatur tentang informasi serta transaksi elektronik, termasuk perilaku cyberbullying dan ujaran kebencian di dunia maya adalah...", options: ["UU Ketenagakerjaan", "UU Hak Cipta", "UU ITE", "UU Perlindungan Konsumen"], answer: 2, score: 10 },
+      { q: "Salah satu dampak sosial positif dari berkembangnya teknologi informatika adalah...", options: ["Meningkatnya risiko kejahatan siber", "Memudahkan komunikasi jarak jauh dan akses informasi", "Menyebabkan ketergantungan pada gawai", "Penyebaran hoaks yang makin cepat"], answer: 1, score: 10 },
+      { q: "Langkah terbaik yang harus dilakukan saat menerima informasi yang belum jelas kebenarannya (berpotensi hoaks) adalah...", options: ["Langsung membagikannya ke semua grup media sosial", "Memeriksa kebenaran informasi melalui sumber berita terpercaya", "Menambah-nambahi isi berita agar lebih menarik", "Abaikan dan langsung menghapus aplikasi media sosial"], answer: 1, score: 10 },
+      { q: "Jika seseorang menjadi korban cyberbullying di media sosial, langkah pertama yang paling tepat dilakukan adalah...", options: ["Membalas dengan kata-kata yang lebih kasar", "Menyimpan bukti pesan/tangkapan layar dan melaporkan akun pelaku", "Menutup diri dan tidak memberitahu siapapun", "Menghapus seluruh postingan orang lain"], answer: 1, score: 10 },
+      { q: "Kesenjangan atau perbedaan kemampuan dalam mengakses dan menggunakan teknologi informasi antar individu atau kelompok dinamakan...", options: ["Digital divide (kesenjangan digital)", "Digital literacy", "Digital footprint", "Digital citizenship"], answer: 0, score: 10 }
+    ];
+
+    // Menggabungkan soal aktual dengan generator soal dummy hingga bernomor 40
+    const questions = [...rawQuestions];
+    const existingCount = questions.length;
+    for (let i = existingCount + 1; i <= 40; i++) {
+        questions.push({
+            q: `Ini adalah contoh teks soal nomor ${i}. Silakan ganti soal ini di dalam kode script.`,
+            options: [`Pilihan A`, `Pilihan B`, `Pilihan C`, `Pilihan D`],
+            answer: 0,
+            score: 10
+        });
+    }
+
+    let studentName = "";
+    let currentIndex = 0;
+    let tabSwitchCount = 0;
+    const maxTabSwitch = 3;
+    let isQuizFinished = false;
+    let isQuizStarted = false;
+    const userAnswers = new Array(questions.length).fill(null);
+
+    function startQuiz() {
+        const nameInput = document.getElementById("student-name").value.trim();
+        if (!nameInput) {
+            alert("Harap masukkan namamu terlebih dahulu!");
+            return;
+        }
+        studentName = nameInput;
+        isQuizStarted = true;
+        document.getElementById("start-box").style.display = "none";
+        document.getElementById("quiz-box").style.display = "block";
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = questions[currentIndex];
+        document.getElementById("q-number").innerText = `Soal ${currentIndex + 1} dari ${questions.length}`;
+        document.getElementById("q-text").innerText = q.q;
+
+        const optionsBox = document.getElementById("options-box");
+        optionsBox.innerHTML = "";
+
+        const prefixes = ["A", "B", "C", "D"];
+
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "option-btn";
+            if (userAnswers[currentIndex] === idx) {
+                btn.classList.add("selected");
+            }
+
+            btn.innerHTML = `<span class="option-prefix">${prefixes[idx]}</span> ${opt}`;
+            btn.onclick = () => selectOption(idx);
+            optionsBox.appendChild(btn);
+        });
+
+        document.getElementById("prev-btn").disabled = currentIndex === 0;
+        
+        if (currentIndex === questions.length - 1) {
+            document.getElementById("next-btn").style.display = "none";
+            document.getElementById("submit-btn").style.display = "block";
+        } else {
+            document.getElementById("next-btn").style.display = "block";
+            document.getElementById("submit-btn").style.display = "none";
+        }
+    }
+
+    function selectOption(index) {
+        userAnswers[currentIndex] = index;
+        loadQuestion();
+    }
+
+    function changeQuestion(direction) {
+        currentIndex += direction;
+        loadQuestion();
+    }
+
+    function finishQuiz(isAutoSubmit = false) {
+        if (isQuizFinished) return;
+
+        if (!isAutoSubmit) {
+            if (!confirm("Apakah kamu yakin ingin mengumpulkan jawaban?")) return;
+        }
+
+        isQuizFinished = true;
+        let totalScore = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let emptyCount = 0;
+
+        questions.forEach((q, idx) => {
+            const userAns = userAnswers[idx];
+            if (userAns === null) {
+                emptyCount++;
+            } else if (userAns === q.answer) {
+                correctCount++;
+                totalScore += q.score;
+            } else {
+                wrongCount++;
+                totalScore -= 4;
+            }
+        });
+
+        document.getElementById("quiz-box").style.display = "none";
+        document.getElementById("alert-banner").style.display = "none";
+        document.getElementById("result-box").style.display = "block";
+        
+        if (isAutoSubmit) {
+            document.getElementById("result-title").innerText = "Ujian Dikirim Otomatis!";
+            document.getElementById("result-desc").innerText = "Kamu telah keluar dari tab kuis sebanyak 3 kali, sehingga ujian otomatis dihentikan.";
+        }
+
+        document.getElementById("res-student-name").innerText = studentName;
+        document.getElementById("final-score").innerText = totalScore;
+        document.getElementById("count-correct").innerText = correctCount;
+        document.getElementById("count-wrong").innerText = wrongCount;
+        document.getElementById("count-empty").innerText = emptyCount;
+
+        sendDataToGSheet({
+            nama: studentName,
+            nilai: totalScore,
+            benar: correctCount,
+            salah: wrongCount,
+            kosong: emptyCount
+        });
+    }
+
+    function sendDataToGSheet(payload) {
+        const statusElem = document.getElementById("sending-status");
+
+        const formData = new FormData();
+        formData.append("nama", payload.nama);
+        formData.append("nilai", payload.nilai);
+        formData.append("benar", payload.benar);
+        formData.append("salah", payload.salah);
+        formData.append("kosong", payload.kosong);
+
+        fetch(GSHEET_SCRIPT_URL, {
+            method: "POST",
+            body: formData
+        })
+        .then(() => {
+            statusElem.innerText = "✅ Data nilai berhasil tersimpan di Google Sheets!";
+            statusElem.style.color = "#27ae60";
+        })
+        .catch(err => {
+            statusElem.innerText = "✅ Ujian selesai! Jawaban telah terkirim.";
+            statusElem.style.color = "#27ae60";
+        });
+    }
+
+    document.addEventListener("visibilitychange", function() {
+        if (document.hidden && isQuizStarted && !isQuizFinished) {
+            tabSwitchCount++;
+            const remaining = maxTabSwitch - tabSwitchCount;
+
+            if (tabSwitchCount >= maxTabSwitch) {
+                alert("🚨 Kamu telah pindah tab sebanyak 3 kali! Ujianmu otomatis dikumpulkan sekarang.");
+                finishQuiz(true);
+            } else {
+                const banner = document.getElementById("alert-banner");
+                document.getElementById("warning-count").innerText = remaining;
+                banner.style.display = "block";
+                alert(`⚠️ PERINGATAN! Kamu terdeteksi keluar dari tab ujian!\nSisa kesempatan: ${remaining} kali lagi.`);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
