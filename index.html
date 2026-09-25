@@ -241,7 +241,7 @@
     <div id="quiz-box" style="display: none;">
         <div class="header">
             <h1 class="title">✎ᝰ. Kuis ICT </h1>
-            <span class="badge" id="penalty-info">Salah = -4 Poin</span>
+            <span class="badge" id="penalty-info">Salah = -1 Poin</span>
         </div>
 
         <div class="question-number" id="q-number">Soal 1 dari 40</div>
@@ -266,7 +266,7 @@
         <div style="text-align: left; background: #FFFBEA; border: 2px solid var(--accent-yellow); padding: 18px; border-radius: 16px; margin-top: 20px;">
             <p style="margin: 6px 0;">👤 Nama: <strong id="res-student-name">-</strong></p>
             <p style="margin: 6px 0;">✅ Jawaban Benar: <strong id="count-correct">0</strong></p>
-            <p style="margin: 6px 0;">❌ Jawaban Salah (-4): <strong id="count-wrong">0</strong></p>
+            <p style="margin: 6px 0;">❌ Jawaban Salah (-1): <strong id="count-wrong">0</strong></p>
             <p style="margin: 6px 0;">⚪ Tidak Dijawab: <strong id="count-empty">0</strong></p>
         </div>
         <p id="sending-status" style="font-size: 13px; font-weight: bold; color: #537EC5; margin-top: 15px;">Mengirim data ke Google Sheets...</p>
@@ -418,7 +418,7 @@
                 totalScore += q.score;
             } else {
                 wrongCount++;
-                totalScore -= 4; // <-- SUDAH DIPERBAIKI: Pengurangan poin salah menjadi -4
+                totalScore -= 1; // Pengurangan poin untuk jawaban salah diubah menjadi -1
             }
         });
 
